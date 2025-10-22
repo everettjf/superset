@@ -19,6 +19,15 @@ function LitBackground() {
             const y = (state.mouse.y * viewport.height) / 2;
             // Position light slightly in front of the plane
             lightRef.current.position.set(x, y, 2);
+
+            // Change color based on position - cooler palette (blue to cyan to purple)
+            // Map x position to hue range: 180° (cyan) to 270° (blue/purple)
+            const hue = 180 + ((state.mouse.x + 1) / 2) * 90; // 180-270 degrees
+            // Map y position to saturation
+            const saturation = 60 + ((state.mouse.y + 1) / 2) * 40; // 60-100%
+            const lightness = 65; // Slightly brighter for cool colors
+
+            lightRef.current.color.setHSL(hue / 360, saturation / 100, lightness / 100);
         }
 
         // Make the text group face the camera
@@ -68,6 +77,27 @@ function LitBackground() {
 
             {/* 3D Text that reacts to light */}
             <group ref={textGroupRef} position={[0, 0.5, 1]}>
+                {/* Outer edge layer - highly metallic */}
+                <Text
+                    position={[0, 0, 0.02]}
+                    fontSize={1.805}
+                    color="#0a0a0a"
+                    anchorX="center"
+                    anchorY="middle"
+                    outlineWidth={0.005}
+                    outlineColor="#ffffff"
+                >
+                    ⊇
+                    <meshStandardMaterial
+                        color="#4a5559"
+                        metalness={1.0}
+                        roughness={0.05}
+                        emissive="#000000"
+                        emissiveIntensity={0}
+                        envMapIntensity={2.5}
+                    />
+                </Text>
+
                 {/* Create depth by layering multiple text instances */}
                 {[...Array(30)].map((_, i) => (
                     <Text
@@ -81,11 +111,11 @@ function LitBackground() {
                         ⊇
                         <meshStandardMaterial
                             color="#2c3539"
-                            metalness={0.95}
-                            roughness={0.2}
+                            metalness={0.85}
+                            roughness={0.25}
                             emissive="#000000"
                             emissiveIntensity={0}
-                            envMapIntensity={1}
+                            envMapIntensity={1.5}
                         />
                     </Text>
                 ))}
