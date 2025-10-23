@@ -67,9 +67,7 @@ export function Footer() {
 					className="pt-8 border-t border-zinc-800 flex flex-col sm:flex-row justify-between items-center gap-4"
 				>
 					<div className="flex items-center gap-2">
-						<div className="w-8 h-8 bg-white rounded-full flex items-center justify-center">
-							<span className="text-black font-bold text-sm">S</span>
-						</div>
+						<span className="text-white font-bold text-2xl">⊇</span>
 						<span className="text-white font-semibold">Superset</span>
 					</div>
 					<p className="text-zinc-400 text-sm">

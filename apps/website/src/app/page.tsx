@@ -7,6 +7,7 @@ import { FadeUp } from "@/components/motion/FadeUp";
 import { HeroParallax } from "@/components/motion/HeroParallax";
 import { TiltCard } from "@/components/motion/TiltCard";
 import { HeroCanvas } from "@/components/three/HeroCanvas";
+import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 
 // Client logos data
@@ -312,11 +313,14 @@ function ScaleFeaturesSection() {
 // Main page component
 export default function Home() {
 	return (
-		<main className="flex min-h-screen flex-col bg-black">
-			<HeroSection />
-			<ClientLogosSection />
-			<ScaleFeaturesSection />
-			<Footer />
-		</main>
+		<>
+			<Header />
+			<main className="flex min-h-screen flex-col bg-black">
+				<HeroSection />
+				<ClientLogosSection />
+				<ScaleFeaturesSection />
+				<Footer />
+			</main>
+		</>
 	);
 }
