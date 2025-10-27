@@ -52,7 +52,6 @@ class TerminalManager {
 
             // Fallback to HOME or process.cwd() if no directory specified or doesn't exist
             const finalCwd = workingDir || process.env.HOME || process.cwd();
-            console.log("finalCwd", finalCwd);
             // Use login shell to load user's shell configuration
             const shellArgs = os.platform() === "win32" ? [] : ["-l"];
 

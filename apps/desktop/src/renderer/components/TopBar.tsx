@@ -5,9 +5,15 @@ interface TopBarProps {
 
 export function TopBar({ isSidebarOpen, onOpenSidebar }: TopBarProps) {
 	return (
-		<div className="flex items-center justify-between border-b border-neutral-800 bg-neutral-950 text-neutral-300 select-none" style={{ height: '48px' }}>
+		<div
+			className="flex items-center justify-between border-b border-neutral-800 bg-neutral-950 text-neutral-300 select-none"
+			style={{ height: "48px" }}
+		>
 			{/* Left section - Sidebar toggle */}
-			<div className="flex items-center" style={{ paddingLeft: isSidebarOpen ? '1rem' : '88px' }}>
+			<div
+				className="flex items-center"
+				style={{ paddingLeft: isSidebarOpen ? "1rem" : "88px" }}
+			>
 				{!isSidebarOpen && (
 					<button
 						onClick={onOpenSidebar}
@@ -90,24 +96,9 @@ export function TopBar({ isSidebarOpen, onOpenSidebar }: TopBarProps) {
 						fill="none"
 						xmlns="http://www.w3.org/2000/svg"
 					>
-						<circle
-							cx="8"
-							cy="8"
-							r="1.5"
-							fill="currentColor"
-						/>
-						<circle
-							cx="8"
-							cy="3"
-							r="1.5"
-							fill="currentColor"
-						/>
-						<circle
-							cx="8"
-							cy="13"
-							r="1.5"
-							fill="currentColor"
-						/>
+						<circle cx="8" cy="8" r="1.5" fill="currentColor" />
+						<circle cx="8" cy="3" r="1.5" fill="currentColor" />
+						<circle cx="8" cy="13" r="1.5" fill="currentColor" />
 					</svg>
 				</button>
 			</div>

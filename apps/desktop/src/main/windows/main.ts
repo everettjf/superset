@@ -1,49 +1,49 @@
-import { BrowserWindow, screen } from 'electron'
-import { join } from 'node:path'
+import { BrowserWindow, screen } from "electron";
+import { join } from "node:path";
 
-import { createWindow } from 'lib/electron-app/factories/windows/create'
-import { ENVIRONMENT } from 'shared/constants'
-import { displayName } from '~/package.json'
-import { registerTerminalIPCs } from '../lib/terminal-ipcs'
+import { createWindow } from "lib/electron-app/factories/windows/create";
+import { ENVIRONMENT } from "shared/constants";
+import { displayName } from "~/package.json";
+import { registerTerminalIPCs } from "../lib/terminal-ipcs";
 
 export async function MainWindow() {
-  const { width, height } = screen.getPrimaryDisplay().workAreaSize
+	const { width, height } = screen.getPrimaryDisplay().workAreaSize;
 
-  const window = createWindow({
-    id: 'main',
-    title: displayName,
-    width,
-    height,
-    show: false,
-    center: true,
-    movable: true,
-    resizable: true,
-    alwaysOnTop: false,
-    autoHideMenuBar: true,
-    frame: false,
-    titleBarStyle: 'hidden',
-    trafficLightPosition: { x: 16, y: 16 },
+	const window = createWindow({
+		id: "main",
+		title: displayName,
+		width,
+		height,
+		show: false,
+		center: true,
+		movable: true,
+		resizable: true,
+		alwaysOnTop: false,
+		autoHideMenuBar: true,
+		frame: false,
+		titleBarStyle: "hidden",
+		trafficLightPosition: { x: 16, y: 16 },
 
-    webPreferences: {
-      preload: join(__dirname, '../preload/index.js'),
-    },
-  })
+		webPreferences: {
+			preload: join(__dirname, "../preload/index.js"),
+		},
+	});
 
-  // Register terminal IPC handlers
-  const cleanupTerminal = registerTerminalIPCs(window)
+	// Register terminal IPC handlers
+	const cleanupTerminal = registerTerminalIPCs(window);
 
-  window.webContents.on('did-finish-load', () => {
-    window.show()
-  })
+	window.webContents.on("did-finish-load", () => {
+		window.show();
+	});
 
-  window.on('close', () => {
-    // Clean up terminal processes
-    cleanupTerminal()
+	window.on("close", () => {
+		// Clean up terminal processes
+		cleanupTerminal();
 
-    for (const window of BrowserWindow.getAllWindows()) {
-      window.destroy()
-    }
-  })
+		for (const window of BrowserWindow.getAllWindows()) {
+			window.destroy();
+		}
+	});
 
-  return window
+	return window;
 }
