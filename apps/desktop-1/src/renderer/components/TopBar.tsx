@@ -5,13 +5,13 @@ interface TopBarProps {
 
 export function TopBar({ isSidebarOpen, onOpenSidebar }: TopBarProps) {
 	return (
-		<div className="flex items-center justify-between px-4 py-2 border-b border-neutral-800 bg-neutral-950 text-neutral-300 select-none">
+		<div className="flex items-center justify-between border-b border-neutral-800 bg-neutral-950 text-neutral-300 select-none" style={{ height: '48px' }}>
 			{/* Left section - Sidebar toggle */}
-			<div className="flex items-center gap-3">
+			<div className="flex items-center" style={{ paddingLeft: isSidebarOpen ? '1rem' : '88px' }}>
 				{!isSidebarOpen && (
 					<button
 						onClick={onOpenSidebar}
-						className="p-1.5 opacity-70 hover:opacity-100 transition-colors rounded hover:bg-neutral-800"
+						className="p-2 opacity-70 hover:opacity-100 transition-colors rounded hover:bg-neutral-800"
 					>
 						<svg
 							width="16"

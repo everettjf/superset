@@ -17,35 +17,28 @@ export function Sidebar({ onTabSelect, activeTabId, onCollapse }: SidebarProps) 
 
 	return (
 		<div className="flex flex-col h-full w-64 select-none bg-neutral-900 text-neutral-300 border-r border-neutral-800">
-			{/* Top Section - Window Controls */}
-			<div className="flex items-center justify-between gap-2 px-4 py-3 border-b border-neutral-800">
-				<div className="flex gap-2">
-					<div className="w-3 h-3 rounded-full bg-[#FF5F57]" />
-					<div className="w-3 h-3 rounded-full bg-[#FEBC2E]" />
-					<div className="w-3 h-3 rounded-full bg-[#28C840]" />
-				</div>
-				<div className="flex items-center gap-2">
-					<button
-						onClick={onCollapse}
-						className="p-2 rounded opacity-70 hover:opacity-100 hover:bg-neutral-800 transition-all"
+			{/* Top Section - Matches window controls height */}
+			<div className="flex items-center border-b border-neutral-800" style={{ height: '48px', paddingLeft: '88px' }}>
+				<button
+					onClick={onCollapse}
+					className="p-2 rounded opacity-70 hover:opacity-100 hover:bg-neutral-800 transition-all"
+				>
+					<svg
+						width="16"
+						height="16"
+						viewBox="0 0 16 16"
+						fill="none"
+						xmlns="http://www.w3.org/2000/svg"
 					>
-						<svg
-							width="16"
-							height="16"
-							viewBox="0 0 16 16"
-							fill="none"
-							xmlns="http://www.w3.org/2000/svg"
-						>
-							<path
-								d="M10 4L6 8L10 12"
-								stroke="currentColor"
-								strokeWidth="1.5"
-								strokeLinecap="round"
-								strokeLinejoin="round"
-							/>
-						</svg>
-					</button>
-				</div>
+						<path
+							d="M10 4L6 8L10 12"
+							stroke="currentColor"
+							strokeWidth="1.5"
+							strokeLinecap="round"
+							strokeLinejoin="round"
+						/>
+					</svg>
+				</button>
 			</div>
 
 			{/* Tabs Section */}
