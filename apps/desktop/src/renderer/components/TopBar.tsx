@@ -1,4 +1,4 @@
-import { Button } from "@superset/ui/button";
+import { Button } from "./ui/button";
 
 interface TopBarProps {
 	isSidebarOpen: boolean;
@@ -21,6 +21,7 @@ export function TopBar({ isSidebarOpen, onOpenSidebar }: TopBarProps) {
 						variant="ghost"
 						size="icon-sm"
 						onClick={onOpenSidebar}
+						className="hover:bg-neutral-800"
 					>
 						<svg
 							width="16"
@@ -74,8 +75,8 @@ export function TopBar({ isSidebarOpen, onOpenSidebar }: TopBarProps) {
 			</div>
 
 			{/* Right section - Actions */}
-			<div className="flex items-center gap-2">
-				<Button variant="ghost" size="icon-sm">
+			<div className="flex items-center gap-1 pr-4">
+				<Button variant="ghost" size="icon-sm" className="hover:bg-neutral-800">
 					<svg
 						width="16"
 						height="16"
@@ -91,7 +92,7 @@ export function TopBar({ isSidebarOpen, onOpenSidebar }: TopBarProps) {
 						/>
 					</svg>
 				</Button>
-				<Button variant="ghost" size="icon-sm">
+				<Button variant="ghost" size="icon-sm" className="hover:bg-neutral-800">
 					<svg
 						width="16"
 						height="16"

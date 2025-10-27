@@ -42,6 +42,7 @@
       "name": "my-electron-app",
       "version": "0.0.0",
       "dependencies": {
+        "@radix-ui/react-slot": "^1.2.3",
         "@superset/ui": "workspace:*",
         "@xterm/addon-fit": "^0.10.0",
         "@xterm/addon-search": "^0.15.0",

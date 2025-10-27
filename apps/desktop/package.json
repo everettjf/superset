@@ -26,12 +26,12 @@
 		"lint:fix": "biome check --write --no-errors-on-unmatched --assist-enabled=true"
 	},
 	"dependencies": {
-		"@superset/ui": "workspace:*",
-		"@xterm/xterm": "^5.5.0",
+		"@radix-ui/react-slot": "^1.2.3",
 		"@xterm/addon-fit": "^0.10.0",
 		"@xterm/addon-search": "^0.15.0",
 		"@xterm/addon-web-links": "^0.11.0",
 		"@xterm/addon-webgl": "^0.18.0",
+		"@xterm/xterm": "^5.5.0",
 		"class-variance-authority": "^0.7.1",
 		"clsx": "^2.1.1",
 		"electron-router-dom": "^2.1.0",

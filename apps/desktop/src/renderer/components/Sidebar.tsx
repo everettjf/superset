@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button } from "@superset/ui/button";
+import { Button } from "./ui/button";
 
 interface Tab {
     id: string;
@@ -113,9 +113,9 @@ export function Sidebar({
             </div>
 
             {/* Tabs Section */}
-            <div className="flex-1 overflow-y-auto px-3 py-2 space-y-3">
+            <div className="flex-1 overflow-y-auto px-3 py-2 space-y-1">
                 {/* New Tab Button */}
-                <Button variant="ghost" className="w-full justify-start">
+                <Button variant="ghost" size="sm" className="w-full h-8 px-3 font-normal" style={{ justifyContent: 'flex-start' }}>
                     <span>+</span>
                     <span>New Tab</span>
                 </Button>
@@ -126,8 +126,10 @@ export function Sidebar({
                         {/* Group Header */}
                         <Button
                             variant="ghost"
+                            size="sm"
                             onClick={() => toggleGroupCollapse(group.id)}
-                            className="w-full justify-start"
+                            className="w-full h-8 px-3 font-normal"
+                            style={{ justifyContent: 'flex-start' }}
                         >
                             <svg
                                 width="12"
@@ -151,16 +153,18 @@ export function Sidebar({
 
                         {/* Group Tabs */}
                         {!group.isCollapsed && (
-                            <div className="space-y-1 pl-2">
+                            <div className="space-y-1 pl-3">
                                 {group.tabs.map((tab) => (
                                     <Button
                                         key={tab.id}
                                         variant="ghost"
+                                        size="sm"
                                         onClick={() => onTabSelect(tab.id)}
-                                        className={`w-full justify-start ${activeTabId === tab.id
+                                        className={`w-full h-8 px-3 font-normal ${activeTabId === tab.id
                                                 ? "bg-neutral-800 border border-neutral-700"
                                                 : ""
                                             }`}
+                                        style={{ justifyContent: 'flex-start' }}
                                     >
                                         <span>{getTabIcon(tab.type)}</span>
                                         <span className="truncate">{tab.title}</span>
