@@ -20,12 +20,7 @@ const ipcRendererAPI = {
   send: (channel: string, ...args: any[]) => ipcRenderer.send(channel, ...args),
   on: (channel: string, listener: (...args: any[]) => void) => {
     const wrappedListener = (_event: any, ...args: any[]) => {
-      console.log('[Preload] IPC event received:', { channel, argsCount: args.length, firstArg: args[0] });
-      try {
-        listener(...args);
-      } catch (error) {
-        console.error('[Preload] Error in listener:', error, { channel, args });
-      }
+      listener(...args);
     };
     listenerMap.set(listener, wrappedListener);
     ipcRenderer.on(channel, wrappedListener);

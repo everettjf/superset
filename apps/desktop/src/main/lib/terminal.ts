@@ -65,7 +65,6 @@ class TerminalManager {
             });
 
             ptyProcess.onData((data: string) => {
-                console.log('[TerminalManager] Received data from pty:', { id, dataLength: data.length, preview: data.slice(0, 50) });
                 this.addTerminalMessage(id, data);
             });
 
@@ -84,7 +83,6 @@ class TerminalManager {
     }
 
     emitMessage(id: string, data: string): void {
-        console.log('[TerminalManager] Emitting message to renderer:', { id, dataLength: data.length, hasMainWindow: !!this.mainWindow });
         this.mainWindow?.webContents.send("terminal-on-data", {
             id,
             data,
@@ -95,11 +93,9 @@ class TerminalManager {
         try {
             const process = this.processes.get(id);
             if (process) {
-                console.log('[TerminalManager] Writing to terminal:', { id, dataLength: data.length, preview: data.slice(0, 50) });
                 process.write(data);
                 return true;
             }
-            console.warn('[TerminalManager] No process found for id:', id);
             return false;
         } catch (error) {
             console.error("Failed to write to terminal:", error);

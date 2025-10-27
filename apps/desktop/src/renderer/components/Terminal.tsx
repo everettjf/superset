@@ -180,14 +180,12 @@ export default function TerminalComponent({
 		window.ipcRenderer
 			.invoke("terminal-create", { cols, rows })
 			.then((terminalId: string) => {
-				console.log('[Terminal] Created terminal with id:', terminalId);
 				terminalIdRef.current = terminalId;
 
 				// Get terminal history
 				return window.ipcRenderer.invoke("terminal-get-history", terminalId);
 			})
 			.then((history: string | undefined) => {
-				console.log('[Terminal] Got history, length:', history?.length || 0);
 				if (history) {
 					term.write(history);
 				}
@@ -198,7 +196,6 @@ export default function TerminalComponent({
 
 		// Set up event listeners
 		term.onData((data) => {
-			console.log('[Terminal] User input:', { terminalId: terminalIdRef.current, dataLength: data.length, preview: data.slice(0, 50) });
 			if (terminalIdRef.current) {
 				window.ipcRenderer.send("terminal-input", {
 					id: terminalIdRef.current,
@@ -217,10 +214,7 @@ export default function TerminalComponent({
 			}
 		});
 
-		const terminalDataListener = (
-			message: TerminalMessage,
-		) => {
-			console.log('[Terminal] Received data from main:', { messageId: message?.id, currentId: terminalIdRef.current, dataLength: message?.data?.length, preview: message?.data?.slice(0, 50), rawMessage: message });
+		const terminalDataListener = (message: TerminalMessage) => {
 			if (message?.id === terminalIdRef.current) {
 				term.write(message.data);
 			}
