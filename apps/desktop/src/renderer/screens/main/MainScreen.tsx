@@ -179,56 +179,57 @@ export function MainScreen() {
 
 				{/* Main Content Area */}
 				<div className="flex-1 flex flex-col overflow-hidden">
-				{/* Top Bar */}
-				<TopBar
-					isSidebarOpen={isSidebarOpen}
-					onOpenSidebar={() => setIsSidebarOpen(true)}
-					workspaceName={currentWorkspace?.name}
-					currentBranch={currentWorkspace?.branch}
-				/>
+					{/* Top Bar */}
+					<TopBar
+						isSidebarOpen={isSidebarOpen}
+						onOpenSidebar={() => setIsSidebarOpen(true)}
+						workspaceName={currentWorkspace?.name}
+						currentBranch={currentWorkspace?.branch}
+					/>
 
-				{/* Content Area - Terminal Layout */}
-				<div className="flex-1 overflow-hidden">
-					{loading && (
-						<div className="flex items-center justify-center h-full bg-neutral-950/40 backdrop-blur-xl rounded-2xl">
-							Loading workspace...
-						</div>
-					)}
+					{/* Content Area - Terminal Layout */}
+					<div className="flex-1 overflow-hidden">
+						{loading && (
+							<div className="flex items-center justify-center h-full bg-neutral-950/40 backdrop-blur-xl rounded-2xl">
+								Loading workspace...
+							</div>
+						)}
 
-					{error && (
-						<div className="flex items-center justify-center h-full text-red-400 bg-neutral-950/40 backdrop-blur-xl rounded-2xl">
-							Error: {error}
-						</div>
-					)}
+						{error && (
+							<div className="flex items-center justify-center h-full text-red-400 bg-neutral-950/40 backdrop-blur-xl rounded-2xl">
+								Error: {error}
+							</div>
+						)}
 
-					{!loading && !error && !currentWorkspace && (
-						<div className="flex flex-col items-center justify-center h-full text-neutral-400 bg-neutral-950/40 backdrop-blur-xl rounded-2xl">
-							<p className="mb-4">No repository open</p>
-							<p className="text-sm text-neutral-500">
-								Use <span className="font-mono">File → Open Repository...</span>{" "}
-								or <span className="font-mono">Cmd+O</span> to get started
-							</p>
-						</div>
-					)}
+						{!loading && !error && !currentWorkspace && (
+							<div className="flex flex-col items-center justify-center h-full text-neutral-400 bg-neutral-950/40 backdrop-blur-xl rounded-2xl">
+								<p className="mb-4">No repository open</p>
+								<p className="text-sm text-neutral-500">
+									Use{" "}
+									<span className="font-mono">File → Open Repository...</span>{" "}
+									or <span className="font-mono">Cmd+O</span> to get started
+								</p>
+							</div>
+						)}
 
-					{!loading && !error && currentWorkspace && !selectedScreen && (
-						<div className="flex flex-col items-center justify-center h-full text-neutral-400 bg-neutral-950/40 backdrop-blur-xl rounded-2xl">
-							<p className="mb-4">
-								Select a worktree and screen to view terminals
-							</p>
-							<p className="text-sm text-neutral-500">
-								Create a worktree from the sidebar to get started
-							</p>
-						</div>
-					)}
+						{!loading && !error && currentWorkspace && !selectedScreen && (
+							<div className="flex flex-col items-center justify-center h-full text-neutral-400 bg-neutral-950/40 backdrop-blur-xl rounded-2xl">
+								<p className="mb-4">
+									Select a worktree and screen to view terminals
+								</p>
+								<p className="text-sm text-neutral-500">
+									Create a worktree from the sidebar to get started
+								</p>
+							</div>
+						)}
 
-					{!loading && !error && selectedScreen && selectedWorktree && (
-						<TerminalLayout
-							layout={selectedScreen.layout}
-							workingDirectory={selectedWorktree.path}
-						/>
-					)}
-				</div>
+						{!loading && !error && selectedScreen && selectedWorktree && (
+							<TerminalLayout
+								layout={selectedScreen.layout}
+								workingDirectory={selectedWorktree.path}
+							/>
+						)}
+					</div>
 				</div>
 			</AppFrame>
 		</div>
