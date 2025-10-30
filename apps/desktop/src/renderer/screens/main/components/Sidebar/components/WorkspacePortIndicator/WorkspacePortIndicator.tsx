@@ -1,6 +1,6 @@
 import { Circle } from "lucide-react";
 import { useEffect, useState } from "react";
-import type { Worktree } from "shared/types";
+import type { Workspace } from "shared/types";
 import {
 	Tooltip,
 	TooltipContent,
@@ -8,17 +8,13 @@ import {
 	TooltipTrigger,
 } from "@superset/ui/tooltip";
 
-interface PortIndicatorProps {
-	worktree: Worktree;
-	workspaceId: string;
-	isActive: boolean;
+interface WorkspacePortIndicatorProps {
+	workspace: Workspace;
 }
 
-export function PortIndicator({
-	worktree,
-	workspaceId,
-	isActive,
-}: PortIndicatorProps) {
+export function WorkspacePortIndicator({
+	workspace,
+}: WorkspacePortIndicatorProps) {
 	const [proxyStatus, setProxyStatus] = useState<
 		Array<{
 			canonical: number;
@@ -27,6 +23,13 @@ export function PortIndicator({
 			active: boolean;
 		}>
 	>([]);
+
+	// Check if workspace has port forwarding configured
+	const hasPortForwarding = workspace.ports && workspace.ports.length > 0;
+
+	if (!hasPortForwarding) {
+		return null;
+	}
 
 	// Fetch proxy status periodically
 	useEffect(() => {
@@ -48,17 +51,20 @@ export function PortIndicator({
 		return () => clearInterval(interval);
 	}, []);
 
-	// Get detected ports for this worktree
-	const detectedPorts = worktree.detectedPorts || {};
-	const hasDetectedPorts = Object.keys(detectedPorts).length > 0;
+	// Get active proxy mappings
+	const activeProxies = proxyStatus.filter((p) => p.active && p.target);
 
-	// Get active proxy mappings for this worktree (if it's the active one)
-	const activeProxies = isActive
-		? proxyStatus.filter((p) => p.active && p.target)
-		: [];
+	// Count total detected ports across all worktrees
+	const totalDetectedPorts = workspace.worktrees.reduce((sum, worktree) => {
+		const detectedPorts = worktree.detectedPorts || {};
+		return sum + Object.keys(detectedPorts).length;
+	}, 0);
 
-	if (!hasDetectedPorts && activeProxies.length === 0) {
-		return null; // Don't show anything if no ports
+	const hasActiveProxies = activeProxies.length > 0;
+	const hasDetectedPorts = totalDetectedPorts > 0;
+
+	if (!hasActiveProxies && !hasDetectedPorts) {
+		return null;
 	}
 
 	return (
@@ -66,7 +72,7 @@ export function PortIndicator({
 			<Tooltip>
 				<TooltipTrigger asChild>
 					<div className="flex items-center gap-1 text-xs">
-						{isActive && activeProxies.length > 0 ? (
+						{hasActiveProxies ? (
 							<>
 								<Circle size={8} className="fill-green-500 text-green-500" />
 								<span className="text-green-500 font-medium">
@@ -82,18 +88,15 @@ export function PortIndicator({
 							<>
 								<Circle size={8} className="fill-gray-500 text-gray-500" />
 								<span className="text-gray-500">
-									{Object.entries(detectedPorts)
-										.map(([service, port]) => `${service}:${port}`)
-										.join(", ")}
+									{totalDetectedPorts} port{totalDetectedPorts > 1 ? "s" : ""}{" "}
+									detected
 								</span>
 							</>
 						) : null}
 					</div>
 				</TooltipTrigger>
 				<TooltipContent>
-					{isActive && activeProxies.length > 0
-						? "Port forwarded"
-						: "Port detected"}
+					{hasActiveProxies ? "Port forwarded" : "Port detected"}
 				</TooltipContent>
 			</Tooltip>
 		</TooltipProvider>
