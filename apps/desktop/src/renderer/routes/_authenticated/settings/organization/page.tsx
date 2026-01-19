@@ -2,21 +2,21 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useMemo } from "react";
 import { useSettingsSearchQuery } from "renderer/stores/settings-state";
 import { getMatchingItemsForSection } from "../utils/settings-search";
-import { TerminalSettings } from "./components/TerminalSettings";
+import { OrganizationSettings } from "./components/OrganizationSettings";
 
-export const Route = createFileRoute("/_authenticated/settings/terminal/")({
-	component: TerminalSettingsPage,
+export const Route = createFileRoute("/_authenticated/settings/organization/")({
+	component: OrganizationSettingsPage,
 });
 
-function TerminalSettingsPage() {
+function OrganizationSettingsPage() {
 	const searchQuery = useSettingsSearchQuery();
 
 	const visibleItems = useMemo(() => {
 		if (!searchQuery) return null;
-		return getMatchingItemsForSection(searchQuery, "terminal").map(
+		return getMatchingItemsForSection(searchQuery, "organization").map(
 			(item) => item.id,
 		);
 	}, [searchQuery]);
 
-	return <TerminalSettings visibleItems={visibleItems} />;
+	return <OrganizationSettings visibleItems={visibleItems} />;
 }
